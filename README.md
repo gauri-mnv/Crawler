@@ -87,6 +87,9 @@ A web crawler does exactly this—but at internet scale and speed.
 
 ![API Response](https://i.ibb.co/b5GtSm0m/headings-and-anc.png)
 
+![console Response](https://i.ibb.co/rfcWRCwz/Screenshot-from-2026-03-20-09-51-38.png)
+
+
 
 ## 🚀 Getting Started
 
