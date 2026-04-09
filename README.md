@@ -112,7 +112,7 @@ The server will start at:
 ```
 http://localhost:4005
 ```
-
+- check : `http://localhost:4005/scrape/Headlines`
 ---
 
 ## 📡 API Usage

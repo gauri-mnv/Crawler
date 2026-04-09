@@ -10,10 +10,12 @@ export class AppService {
       const response = await axios.get(url);
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const html = response.data;
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       const $ = cheerio.load(html);
 
       const headlines: string[] = [];
       const links: string[] = [];
+      const paragraphs: string[] = [];
 
       console.log(
         // eslint-disable-next-line @typescript-eslint/no-unsafe-call
@@ -30,6 +32,13 @@ export class AppService {
         const link = $(element).attr('href');
         if (link && link.startsWith('http')) {
           links.push(link);
+        }
+      });
+      // 3. Collect P Tags (Links)
+      $('P').each((index, element) => {
+        const paragraph = $(element).text().trim();
+        if (paragraph.length > 0) {
+          paragraphs.push(paragraph);
         }
       });
 
@@ -50,9 +59,11 @@ export class AppService {
         stats: {
           totalHeadlines: headlines.length,
           totalLinksFound: links.length,
+          totalParagraphs: paragraphs.length,
         },
         headlines: headlines,
         nextPageOptions: links,
+        paragraphs: paragraphs,
       };
     } catch (error) {
       console.error(
