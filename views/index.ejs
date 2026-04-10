@@ -4,7 +4,7 @@
     <title>Crawler Results</title>
 <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 40px; background: #f0f2f5; }
-        .container { max-width: 1200px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .container { max-width: 1400px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         .header { text-align: center; border-bottom: 2px solid #eee; margin-bottom: 20px; padding-bottom: 10px; }
         
         /* Form styling */
@@ -88,6 +88,10 @@
                     <h2><%= stats.totalParagraphs %></h2>
                     <p>Paragraphs Found</p>
                 </div>
+                <div class="stat-card" style="border-bottom-color: #ffc107;">
+                    <h2><%= stats.totalApiCalls %></h2>
+                    <p>API Callings Found</p>
+                </div>
             </div>
 
             <div class="result-box">
@@ -119,9 +123,31 @@
                                 <% } %>
                             </ul>
                         </div>
+
+                    <div class="column">
+                        <h3>🌐 All API Callings</h3>
+                        <ul>
+                            <% apiCalls.forEach(function(api) { %>
+                                <li style="color: #d63384; font-family: monospace; font-size: 12px;">
+                                    <strong>GET/POST:</strong> <%= api %>
+                                </li>
+                            <% }); %>
+                        </ul>
+                    </div>
             
             </div>
         <% } %>
     </div>
 </body>
+<script>
+    async function startCrawl() {
+    const res = await fetch('/scrape/Headlines', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ target: url })
+    });
+    const data = await res.json(); // Ab ye Network -> Fetch/XHR mein dikhega!
+    console.log(data);
+}
+</script>
 </html>
