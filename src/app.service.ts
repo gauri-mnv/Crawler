@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
@@ -60,6 +62,7 @@ export class AppService {
           } catch (e) {
             // Kuch responses JSON nahi hote, unhe ignore karein
             console.log(e);
+            return e;
           }
         }
       });
@@ -101,17 +104,17 @@ export class AppService {
       );
 
       await browser.close();
-      // console.log(`data: url: ${url},
-      //   stats: {
-      //     totalHeadlines:${headlines.length} ,
-      //     totalLinksFound: ${links.length},
-      //     totalParagraphs: ${paragraphs.length},
-      //     totalApiCalls: ${apiCalls.length},
-      //   },
-      //   headlines: ${headlines},
-      //   nextPageOptions: ${links},
-      //   paragraphs: ${paragraphs},
-      //   apiCalls: ${apiCalls}`);
+      console.log(`data: url: ${url},
+        stats: {
+          totalHeadlines:${headlines.length} ,
+          totalLinksFound: ${links.length},
+          totalParagraphs: ${paragraphs.length},
+          totalApiCalls: ${apiCalls.length},
+        },
+        headlines: ${headlines},
+        nextPageOptions: ${links},
+        paragraphs: ${paragraphs},
+        apiCalls: ${apiCalls}`);
 
       return {
         url: url,
