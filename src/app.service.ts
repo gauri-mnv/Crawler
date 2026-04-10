@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-misused-promises */
+
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import { Injectable } from '@nestjs/common';
 import chalker from 'chalker';
@@ -72,15 +71,15 @@ export class AppService {
       const extractedHeadlines = await page.$$eval('h1, h2, h3', (elements) =>
         elements.map((el) => el.textContent?.trim()).filter(Boolean),
       );
-      headlines.push(...(extractedHeadlines as string[]));
+      headlines.push(...extractedHeadlines);
 
       // 2. Collect Anchor Tags (Links)
       const extractedLinks = await page.$$eval('a', (elements) =>
         elements
-          .map((el) => (el as HTMLAnchorElement).href)
+          .map((el) => el.href)
           .filter((href) => href && href.startsWith('http')),
       );
-      links.push(...(extractedLinks as string[]));
+      links.push(...extractedLinks);
 
       // 3. Collect Paragraphs
       const extractedParagraphs = await page.$$eval('p', (elements) =>
@@ -88,7 +87,7 @@ export class AppService {
           .map((el) => el.textContent?.trim())
           .filter((t) => t && t.length > 0),
       );
-      paragraphs.push(...(extractedParagraphs as string[]));
+      paragraphs.push(...extractedParagraphs);
 
       console.log(
         chalker(`
