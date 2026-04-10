@@ -1,95 +1,94 @@
+-----
 
+# 🕵️‍♂️ Professional NestJS Web Crawler & API Inspector
 
-# 🕵️‍♂️ NestJS Web Crawler & Headline Scraper
+A powerful, high-performance web crawler built with **NestJS** and **Puppeteer**. It doesn't just scrape headlines; it intercepts network traffic to give you the **exact API responses** used by any website.
 
-A lightweight and efficient web crawler built with **NestJS** to extract headlines and discover links from any webpage.
-
----
+-----
 
 ## 👤 Contributor
 
 **Gauri Bidwai**
 
----
+-----
 
-## 📖 What is Web Crawling?
+## 🌟 New & Advanced Features
 
-Web crawling (also known as *spidering*) is the automated process of browsing the internet to collect data.
+  * **📡 Network Interception (Real-time)**
+    Automatically captures and saves background API (XHR/Fetch) calls while crawling.
 
-A crawler:
+  * **📊 Professional Dashboard**
+    Real-time stats for Headlines, Links, Paragraphs, and Total API Calls found.
 
-* Starts with a URL
-* Extracts all links from the page
-* Visits those links recursively
-* Collects useful data along the way
+  * **🔍 Deep API Inspector**
+    A dedicated **"API Response Viewer"** tab that displays captured JSON data in an accurate, readable Table or JSON format.
 
-### 🌍 Real-World Analogy
+  * **🤖 Stealth Mode**
+    Uses custom User-Agents and Headers to mimic a real browser, avoiding `500 Internal Server Errors` and bot detection.
 
-Imagine you're in a library:
+-----
 
-1. You pick up a book about **Space**
-2. Inside, you find a reference: *"See Book 405 for Mars"*
-3. You go to Book 405
-4. That book references another book on **Rockets**
+## 📖 Deep Diving: How It Works
 
-A web crawler does exactly this—but at internet scale and speed.
+1.  **Target Entry:** User provides a URL (e.g., `https://example.com`).
+2.  **Headless Browsing:** Puppeteer launches a stealth browser instance.
+3.  **Traffic Sniffing:** While the page loads, the crawler listens to every `fetch` and `xhr` request.
+4.  **Data Extraction:** Simultaneously extracts SEO elements like Headlines (`h1`-`h3`) and Paragraphs.
+5.  **Saved Responses:** Every background API response is cached and ready for instant inspection.
 
----
+-----
 
-## 🛠 Features
-
-* **🔍 Headline Extraction**
-  Extracts all `<h1>`, `<h2>`, and `<h3>` tags from a webpage
-
-* **🔗 Link Discovery**
-  Finds all `<a>` tags and returns outgoing links
-
-* **📊 Data Counting**
-  Provides counts of extracted headlines and links
-
-* **⚠️ Error Handling**
-  Handles blocked sites, invalid URLs, and network issues gracefully
-
----
-
-## ⚖️ Benefits vs Disadvantages
-
-### ✅ Benefits
-
-* **Data Automation**
-  Eliminates manual data collection
-
-* **Market Intelligence**
-  Track competitor content, pricing, or updates
-
-* **SEO Auditing**
-  Detect missing headings and broken links
-
----
-
-### ❌ Disadvantages
-
-* **IP Blocking**
-  Websites may block your IP if requests are too frequent
-
-* **Legal/Ethical Risks**
-  Some sites restrict crawling via `robots.txt`
-
-* **Maintenance Overhead**
-  Changes in website structure can break the scraper
-
----
+## 🖼 Project Visuals
 
 
-### 📊 API Response Example
-
-![API Response](https://i.ibb.co/rRfP6V68/basic-Scaper.png)
-
-![API Response](https://i.ibb.co/b5GtSm0m/headings-and-anc.png)
-
-![console Response](https://i.ibb.co/rfcWRCwz/Screenshot-from-2026-03-20-09-51-38.png)
 
 
+
+### 1\. The Main Dashboard
+
+![*Displays a high-level overview of the crawled page stats.*](https://i.ibb.co/fdwKnQcn/crawl-D.png)
+
+### 2\. API Call Tracking
+
+![*Lists every background network request made by the site.*](https://i.ibb.co/LXTQ3Fy2/Dashboard-Crawl.png)
+
+### 3\. Accurate API Response Viewer
+
+![*Detailed view of the exact JSON data returned by the server.*](https://i.ibb.co/xq8cGNJh/Response-Viewer.png)
+
+-----
+
+## 📡 API Usage & Endpoints
+
+### Core Scraper
+
+`POST /scrape/Headlines`  
+**Body:** `{ "target": "https://example.com" }`
+
+### Dynamic Proxy (Exact API Call)
+
+`ALL /scrape/proxy-api?url={API_URL}&method={METHOD}`  
+*Used to trigger specific API calls with custom methods (GET/POST).*
+
+-----
+
+## 🛠 Tech Stack
+
+  * **Backend:** NestJS (Node.js framework)
+  * **Frontend:** Next.js 14+ (App Router)
+  * **Automation:** Puppeteer (Headless Chrome)
+  * **HTTP Client:** Axios (for proxied requests)
+  * **Styling:** Tailwind CSS
+
+-----
+
+## ⚖️ Benefits for Developers
+
+  * **Reverse Engineering:** Quickly understand how a website's backend API is structured.
+  * **Debugging:** Test blocked APIs by proxying them through the crawler's server.
+  * **SEO & Content Strategy:** High-speed extraction of competitor content structure.
+
+-----
 
 ## 🚀 Getting Started
 
@@ -99,105 +98,23 @@ A web crawler does exactly this—but at internet scale and speed.
 npm install
 ```
 
----
-
 ### 2️⃣ Run the Application
 
 ```bash
-npm run start
+# Start Backend (NestJS) - Usually on port 4005
+npm run start:dev
+
+# Start Frontend (Next.js) - Usually on port 3000
+npm run dev
 ```
 
-The server will start at:
+-----
 
-```
-http://localhost:4005
-```
-- check : `http://localhost:4005/scrape/Headlines`
----
+## 📌 Future Enhancements
 
-## 📡 API Usage
+  * [ ] **Data Persistence:** Save crawl history in MongoDB/PostgreSQL.
+  * [ ] **Export Options:** Download API responses as CSV or Excel.
+  * [ ] **Authentication Support:** Crawl sites that require login credentials.
+  * [ ] **Automated Scheduling:** Run crawls at specific intervals.
 
-### Endpoint
-
-```
-GET /scrape/Headlines
-```
-
-### Query Parameter
-
-| Parameter | Type   | Description               |
-| --------- | ------ | ------------------------- |
-| target    | string | URL of the target website |
-
-### Example Request
-
-```
-http://localhost:4005/scrape/Headlines?target=https://example.com
-```
-
----
-
-## 📦 Sample Response
-
-```json
-{
-  "headlines": {
-    "h1": ["Example Domain"],
-    "h2": [],
-    "h3": []
-  },
-  "links": [
-    "https://www.iana.org/domains/example"
-  ],
-  "counts": {
-    "headlines": 1,
-    "links": 1
-  }
-}
-```
-
----
-
-## 🧠 How It Works
-
-1. Accepts a target URL
-2. Loads the webpage (using a headless browser or HTTP client)
-3. Parses HTML content
-4. Extracts:
-
-   * Headings (`h1`, `h2`, `h3`)
-   * Links (`<a>` tags)
-5. Returns structured JSON data
-
----
-
-## 🖼 Project Visuals
-
-> 📸 *Add a screenshot of your API response here*
-
-Example:
-
-* Open browser
-* Hit your API endpoint
-* Capture JSON response
-* Paste image below
-
----
-
-## ⚠️ Best Practices
-
-* Respect `robots.txt`
-* Add request delays (rate limiting)
-* Avoid scraping sensitive or protected content
-* Use for ethical and legal purposes only
-
----
-
-## 📌 Future Improvements Need TO Do
-
-* Add pagination crawling (multi-page traversal)
-* Store results in database
-* Add keyword filtering
-* Support JavaScript-heavy sites more robustly
-* Add authentication & rate limiting
-
+-----
