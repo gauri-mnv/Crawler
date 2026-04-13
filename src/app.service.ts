@@ -20,13 +20,11 @@ export class AppService {
       args: [
         '--no-sandbox',
         '--disable-setuid-sandbox',
+        '--disable-dev-shm-usage',
         '--single-process',
         '--no-zygote',
       ],
-      executablePath:
-        process.env.NODE_ENV === 'production'
-          ? process.env.PUPPETEER_EXECUTABLE_PATH
-          : puppeteer.executablePath(),
+      executablePath: '/usr/bin/google-chrome',
     });
 
     try {
@@ -113,17 +111,17 @@ export class AppService {
       );
 
       await browser.close();
-      console.log(`data: url: ${url},
-        stats: {
-          totalHeadlines:${headlines.length} ,
-          totalLinksFound: ${links.length},
-          totalParagraphs: ${paragraphs.length},
-          totalApiCalls: ${apiCalls.length},
-        },
-        headlines: ${headlines},
-        nextPageOptions: ${links},
-        paragraphs: ${paragraphs},
-        apiCalls: ${apiCalls}`);
+      // console.log(`data: url: ${url},
+      //   stats: {
+      //     totalHeadlines:${headlines.length} ,
+      //     totalLinksFound: ${links.length},
+      //     totalParagraphs: ${paragraphs.length},
+      //     totalApiCalls: ${apiCalls.length},
+      //   },
+      //   headlines: ${headlines},
+      //   nextPageOptions: ${links},
+      //   paragraphs: ${paragraphs},
+      //   apiCalls: ${apiCalls}`);
 
       return {
         url: url,
