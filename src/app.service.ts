@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-misused-promises */
@@ -14,6 +15,7 @@ export class AppService {
     // Puppeteer launch karein
     const browser = await puppeteer.launch({
       headless: true,
+      executablePath: '/usr/bin/google-chrome',
       args: [
         '--no-sandbox',
         '--disable-setuid-sandbox',
@@ -21,7 +23,6 @@ export class AppService {
         '--single-process',
         '--no-zygote',
       ],
-      executablePath: '/usr/bin/google-chrome',
     });
 
     try {

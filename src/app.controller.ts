@@ -23,22 +23,26 @@ export class AppController {
   }
   // 2. POST Method
   @Post('addHeadlines')
-  async postForm(@Body('target') target: string) {
+  // async postForm(@Body('target') target: string) {
+  async postForm(@Body() body: { target: string }) {
     try {
       // @Body('target') wahi naam hai jo aapne HTML input ke 'name' attribute mein diya hai
-      if (!target || !target.startsWith('http')) {
-        return {
-          url: target,
-          headlines: [],
-          nextPageOptions: [],
-          paragraphs: [],
-          stats: { totalHeadlines: 0, totalLinksFound: 0, totalParagraphs: 0 },
-          errorMessage: 'Invalid URL! Please include http:// or https://',
-        };
-      }
+      // if (!target || !target.startsWith('http')) {
+      //   return {
+      //     url: target,
+      //     headlines: [],
+      //     nextPageOptions: [],
+      //     paragraphs: [],
+      //     stats: { totalHeadlines: 0, totalLinksFound: 0, totalParagraphs: 0 },
+      //     errorMessage: 'Invalid URL! Please include http:// or https://',
+      //   };
+      // }
 
-      const data = await this.appService.getTitle(target);
-      return data;
+      // const data = await this.appService.getTitle(target);
+      // return data;
+
+      const result = await this.appService.getTitle(body.target);
+      return result;
     } catch (error) {
       console.log(error);
       return error;
