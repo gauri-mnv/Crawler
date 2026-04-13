@@ -1,15 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 import { Controller, Get, Post, Body } from '@nestjs/common';
 import { AppService } from './app.service';
-// import axios from 'axios';
 
 @Controller('scrape')
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  // 1. GET Method: Jab aap pehli baar page kholenge (localhost:4005/scrape/Headlines)
+  // 1. GET Method:
   @Get('Headlines')
-  // @Render('index') // index.ejs file ko render karega
   getForm() {
     try {
       return {
@@ -22,11 +20,9 @@ export class AppController {
       console.log(error);
       return error;
     }
-    // Shuruat mein hamare paas koi data nahi hai, isliye empty objects bhej rahe hain
   }
-  // 2. POST Method: Jab aap 'Scrape Now' button dabayenge
+  // 2. POST Method
   @Post('addHeadlines')
-  // @Render('index')
   async postForm(@Body('target') target: string) {
     try {
       // @Body('target') wahi naam hai jo aapne HTML input ke 'name' attribute mein diya hai

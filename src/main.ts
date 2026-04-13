@@ -2,20 +2,23 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { NestExpressApplication } from '@nestjs/platform-express';
-import { join } from 'path';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
-  app.setBaseViewsDir(join(__dirname, '..', 'views'));
 
-  app.setViewEngine('ejs');
-
+  // CORS enable karna zaroori hai taaki frontend backend se baat kar sake
   app.enableCors({
     origin: '*',
-    methods: 'GET,POST',
+    methods: 'GET,POST,PUT,DELETE,OPTIONS',
     credentials: true,
   });
-  await app.listen(process.env.PORT ?? 4005);
-  console.log(`Application is running on: localhost:${4005}`);
+
+  // Render port
+  const port = process.env.PORT ?? 4005;
+
+  // '0.0.0.0' means listen on all available network interfaces
+  await app.listen(port, '0.0.0.0');
+
+  console.log(`🚀 Crawler Backend is running on: http://0.0.0.0:${port}`);
 }
 bootstrap();

@@ -1,10 +1,7 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-misused-promises */
-
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-
 /* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-misused-promises */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 import { Injectable } from '@nestjs/common';
 import chalker from 'chalker';
 import UserAgent from 'user-agents';
@@ -60,26 +57,24 @@ export class AppService {
       // 2. Network responses ko track karein
       page.on('response', async (response) => {
         const request = response.request();
-        // Hum sirf API calls (fetch/xhr) ka data save karenge
         if (['fetch', 'xhr'].includes(request.resourceType())) {
           try {
             const url = request.url();
-            const data = await response.json(); // Response body uthayein
-            apiResponses[url] = data; // URL ko key bana kar data save karein
+            const data = await response.json();
+            apiResponses[url] = data;
           } catch (e) {
-            // Kuch responses JSON nahi hote, unhe ignore karein
             console.log(e);
             return e;
           }
         }
       });
-
-      // Page par jayein aur wait karein jab tak network shaant na ho jaye
       await page.goto(url, { waitUntil: 'networkidle2', timeout: 10000 });
 
       // 1. Collect Headlines (H1, H2, H3)
-      const extractedHeadlines = await page.$$eval('h1, h2, h3', (elements) =>
-        elements.map((el) => el.textContent?.trim()).filter(Boolean),
+      const extractedHeadlines = await page.$$eval(
+        'h1, h2, h3, h4',
+        (elements) =>
+          elements.map((el) => el.textContent?.trim()).filter(Boolean),
       );
       headlines.push(...extractedHeadlines);
 
