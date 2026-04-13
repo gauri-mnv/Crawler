@@ -69,7 +69,7 @@ export class AppService {
           }
         }
       });
-      await page.goto(url, { waitUntil: 'networkidle2', timeout: 10000 });
+      await page.goto(url, { waitUntil: 'networkidle0', timeout: 60000 });
 
       // 1. Collect Headlines (H1, H2, H3)
       const extractedHeadlines = await page.$$eval(

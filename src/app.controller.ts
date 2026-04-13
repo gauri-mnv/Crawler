@@ -42,6 +42,7 @@ export class AppController {
       // return data;
 
       const result = await this.appService.getTitle(body.target);
+      console.log('Result:', result);
       return result;
     } catch (error) {
       console.log(error);
